@@ -11,17 +11,18 @@ import java.util.*;
 public class ExampleController {
 
     private Map<String, Set<String>> cache = new HashMap();
-    
+
     @PostMapping("join")
     public Set<String> joinRoom(String roomId, String userId) {
         Set<String> userIds;
-        Set<String> results = new HashSet<>();
+        Set<String> results;
         if ((userIds = cache.get(roomId)) == null) {
             userIds = new HashSet<>();
+            results = new HashSet<>();
             userIds.add(userId);
             cache.put(roomId,userIds);
         } else {
-            results = userIds;
+            results = new HashSet<>(userIds);
             userIds.add(userId);
         }
         return results;
